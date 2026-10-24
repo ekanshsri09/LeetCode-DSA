@@ -1,19 +1,19 @@
 class Solution {
 public:
     int minAddToMakeValid(string s) {
-        int open = 0;
+        stack<char> st;
         int additions = 0;
 
         for (char c : s) {
             if (c == '(') {
-                ++open;
-            } else if (open > 0) {
-                --open;
+                st.push(c);
+            } else if (!st.empty()) {
+                st.pop();  // Match this ')' with an '('
             } else {
-                ++additions;
+                ++additions; // Need to insert a matching '('
             }
         }
 
-        return additions + open;
+        return additions + st.size(); // Remaining '(' need matching ')'
     }
 };
